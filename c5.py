@@ -1,38 +1,57 @@
-#chapter 5
+# Chapter 5
 from __future__ import division
 import math
 import random
 
-#5.2
+#If you want to show the result,you have to use "print func()".
+
+# 5.2
+def multi(Num1,Num2):
+    return "Result is:",Num1 * Num2
+
+# print multi(3,5)
 
 
+# 5.3
+def rank():
+    point = int(raw_input(("Enter point:")))
+    if point in range(90,101):
+        return "A"
+    elif point in range(80,90):
+        return "B"
+    elif point in range(70,80):
+        return "C"
+    elif point in range(60,70):
+        return "D"
+    elif point < 60:
+        return "F"
 
 
-
-
-
-
-
-
-
+# 5-4
 def judge_year(year):
     if (year % 4 == 0) and (year % 100 != 0):
-        print "leap year"
+        return "leap year"
     elif (year % 4 == 0) and (year % 100 == 0):
-        print "leap year"
+        return "leap year"
     else:
-        print"Wrong"
+        return"Wrong"
         
+
+# 5-5
 def change():
-    moneyamount = random.randrange(1,100)
+    moneyamount = random.randrange(1,100) # import random
     a,money = divmod(moneyamount,25)
     b,money = divmod(money,10)
     c,money = divmod(money,5)
     d,money = divmod(money,1)
-    print "We have %s dollars in all." % round((moneyamount / 100),2)
-    print a,"25cents,",b,"10cents,",c,"5cents,",d,"1cents."
-    return a,b,c,d
     
+    return """
+    We have %s dollars in all.
+    %d 25cents,%d 10cents,%d 5cents,%d 1cents.
+    """ % (round((moneyamount / 100),2),a,b,c,d)
+    
+
+# 5-6    
 def calculate(expression):
     expression = raw_input("Please enter the expression(example:1+2):")
     elements = expression.split()
@@ -53,12 +72,16 @@ def calculate(expression):
         return N1 % N2
     else:
         print "Unknown expression!"
-        
+     
+ 
+# 5-7
 def tax():
     price = random.randrange(0,100)
-    tax = 0.08
+    tax = 0.05
     return price*tax
     
+    
+# 5-8
 def geometry_calculate():
     length = int(raw_input("Enter the length:"))
     width = int(raw_input("Enter the width:"))
@@ -68,7 +91,7 @@ def geometry_calculate():
     cube_area = length * width * 6
     circle_area = math.pi * (radius ** 2)
     cube_volume =  length * width * height
-    circle_volume = 3.0/4.0 * math.pi * (radius ** 3)
+    circle_volume = 3.0 / 4.0 * math.pi * (radius ** 3)
     return """
     square_area = % d
     cube_area = % d
@@ -76,6 +99,8 @@ def geometry_calculate():
     cube_volume =  % d
     circle_volume = % d""" % (square_area,cube_area,circle_area,cube_volume,circle_volume)
 
+
+# 5-10
 def f_to_c(f):
     c = (f - 32) * (5. / 9.)
     return c
@@ -83,10 +108,15 @@ def c_to_f(c):
     f = c / (5. / 9.) + 32
     return f
     
-def residues():
+
+# 5-11    
+def resides():
     for i in range(0,21):
         if i % 2 != 0:
-            print i
+            print "Odd number:",i
+        elif i % 2 == 0:
+            print "Even number:",i
+            
 def residues_two():
     N1 = int(raw_input("the first number:"))
     N2 = int(raw_input("the second number:"))
@@ -96,21 +126,30 @@ def residues_two():
         return False
 
         
+# 5-12
 def check():
     i = 99999999999
     while True:
         i *= 1567354236548567574345
         print i
 
+# 5-13
 def change_time():
     hour = int(raw_input("Enter hours amount:"))
     minute = int(raw_input("Enter minutes amount:"))
     minutes = hour * 60 + minute
     return minutes
     
-def bank_tax():
-    pass
     
+# 5-14
+def bank_tax(money):
+    money = int(money)
+    rate = 0.3
+    FV = money*(1 + rate) ** 1
+    return FV
+    
+
+# 5-15
 def divisor_and_multiple():
     N1 = int(raw_input("the first number:"))
     N2 = int(raw_input("the second number:"))
@@ -119,7 +158,7 @@ def divisor_and_multiple():
         if N1 % num == 0 and N2 % num == 0:
             divisor.append(num)
             
-    #calculate the multiple of bigger one,then find the common multiple.     
+    # calculate the multiple of bigger one,then find the common multiple.     
     big = max(N1,N2)
     N3 = (big * n for n in range(1,min(N1,N2)+1))
     multiple = []
@@ -127,10 +166,12 @@ def divisor_and_multiple():
         if num % min(N1,N2) == 0:
             multiple.append(num)
     
-    print "Maximum divisor is:",max(divisor)
-    print "Minimum multiple is:",min(multiple)
+    return """
+    Maximum divisor is:%d
+    Minimum multiple is:%d""" % (max(divisor),min(multiple))
     
-
+    
+# 5-16
 def house_finance():
     open = float(raw_input("Enter opening balance:"))
     monthly = float(raw_input("Enter monthly payment:"))
@@ -143,8 +184,9 @@ def house_finance():
         remain = open - Pymt * monthly
         print "%d \t $%f \t $%f" % (Pymt,monthly,remain)
         Pymt += 1
-        
-        
+    # Still a bit of problem...
+
+# 5-17       
 def random_number():
     randomNum = random.randint(2,101)
     Num = 0
@@ -160,18 +202,12 @@ def random_number():
     
     a = 0
     while a < length:
-        num = random.choice(numbers)
+        num = random.choice(numbers) # get random number
         NewNum.append(num)
         a += 1
         
     finalNum = sorted(NewNum)
-    print finalNum
-
-random_number()
-
-
-
-
+    return finalNum
 
 
 
