@@ -51,6 +51,7 @@ def print_str():
     for word in string:
         print word
 
+        
 
 # 2-8  
 def num_sum():      

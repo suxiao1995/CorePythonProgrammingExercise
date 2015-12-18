@@ -1,3 +1,4 @@
+# _*_ coding:utf-8 _*_ 
 # Chapter 5
 from __future__ import division
 import math
@@ -9,22 +10,7 @@ import random
 def multi(Num1,Num2):
     return "Result is:",Num1 * Num2
 
-# print multi(3,5)
-
-
-# 5.3
-def rank():
-    point = int(raw_input(("Enter point:")))
-    if point in range(90,101):
-        return "A"
-    elif point in range(80,90):
-        return "B"
-    elif point in range(70,80):
-        return "C"
-    elif point in range(60,70):
-        return "D"
-    elif point < 60:
-        return "F"
+#   print multi(3,5)
 
 
 # 5-4

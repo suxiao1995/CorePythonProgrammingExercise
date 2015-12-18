@@ -1,3 +1,4 @@
+# _*_ coding:utf-8 _*_ 
 # Chapter 3
 import os 
 import sys

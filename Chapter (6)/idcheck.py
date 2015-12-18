@@ -1,6 +1,4 @@
 # _*_ coding:utf-8 _*_ 
-
-# Chapter 6
 import string
 
 from keyword import *
@@ -35,46 +33,5 @@ def idcheck():
             else:
                 print "okay as an identifier!"
                     
-
-# 6-3
-def seq():
-    nums = raw_input("Enter some numbers,apart with space.-->")
-    nums = nums.split()
-    index = []
-    
-    for num in nums:
-        index.append(int(num))
-    
-    result = sorted(index,reverse=True)
-    return result
-
-# 字典序？
-def seq2():
-    pass
-    
-    
-# 6-4
-def rank():
-    points = [33,99,65,77,85,46,66]
-    sum = 0
-    # calculate sum
-    for i in points:
-        sum += int(i)
-    # division
-    average_point = sum / len(points)
-    
-    if average_point in range(90,101):
-        return "A"
-    elif average_point in range(80,90):
-        return "B"
-    elif average_point in range(70,80):
-        return "C"
-    elif average_point in range(60,70):
-        return "D"
-    elif average_point < 60:
-        return "F"
-    print sum,average_point
-
-
-# 6-5
-def 
+if __name__ == "__main__":
+    idcheck()
