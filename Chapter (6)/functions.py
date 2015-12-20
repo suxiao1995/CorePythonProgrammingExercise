@@ -78,32 +78,6 @@ def rank():
  
 # 6-5
 
-
-
-
-# 6-8
-def englishNum():
-    nums = []
-    for i in range(1,10):
-        nums.append(i)
-    
-    english = ['one','two','three','four','five','six','seven','eight','nine','ten',]
-    NE = zip(nums,english)
-    a = 1
-    print NE[(1)]
-    
-    num = raw_input("Enter a number:")
-    
-
-    
-    if num < 9:
-       
-        print NE[a]
-    elif num in range(10,20):
-
-    
-        print NE[a],'-',NE[b]
-
         
 
 # 6-9
@@ -112,4 +86,27 @@ def tran_time():
     hours,minutes = divmod(time,60)     
     return "%d hours %d minutes." % (hours,minutes)
     
-# 6-
+# 6-10
+def tran_string(): 
+    string = raw_input("Enter some string:")
+    return string.swapcase()
+    
+    
+# 6-11
+def tran_ip():
+    numbers = raw_input("Enter a id number:")
+    n = 3
+    # split the numbers with 3 length.
+    address = [numbers[i:i+n] for i in xrange(0,len(numbers),n)]
+    ip = ".".join(address)
+    
+    return ip
+    
+    
+# 6-12
+def findchr(string,char):
+    
+# 6-15
+
+    
+    
