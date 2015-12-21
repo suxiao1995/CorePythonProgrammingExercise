@@ -106,25 +106,3 @@ def tran_ip():
 # 6-12
 def findchr(string,char):
     
-# 6-15
-def date_days():
-
-    date1 = raw_input("Enter a start date (DD/MM/YYYY) :")
-    date2 = raw_input("Enter a end date (DD/MM/YYYY) :")
-        
-    days = int(date2[0:2]) - int(date1[0:2])
-    months = int(date2[3:5]) - int(date1[3:5])
-    years = int(date2[6:]) - int(date1[6:])
-
-    total_days = years * 365 + months * 30 + days
-
-    # leap year
-    for year in range(int(date1[6:]), int(date2[6:])+1):
-        if (year % 400 == 0) or (year % 4 == 0 and year % 100 != 0):
-            total_days += 1
-
-    # leap year in incomplete year
-    if years > 1 and int(date2[3:5]) > 2:
-        total_days += 1
-        
-    return total_days
