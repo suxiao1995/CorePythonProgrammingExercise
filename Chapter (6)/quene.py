@@ -3,13 +3,13 @@
 queue = []
 
 def enQ():
-    queue.append(raw_input('Enter New string:').strip())
+    queue.append(raw_input('Enter New string: ').strip())
     
 def deQ():
     if len(queue) == 0:
-        print "Cannot pop from an empty queue!"
+        print "Cannot pop from an empty queue! "
     else:
-        print 'Removed [',`queue.pop(0)`,']'    # `queue.pop(0)` equal to repr(queue.pop(0))
+        print 'Removed [', `queue.pop(0)`, ']'    # `queue.pop(0)` equal to repr(queue.pop(0))
         
 def viewQ():
     print queue     # calls str() internally

@@ -8,19 +8,17 @@ import random
 
 # 5.2
 def multi(Num1,Num2):
-    return "Result is:",Num1 * Num2
+    return "Result is: ",Num1 * Num2
 
 #   print multi(3,5)
 
 
 # 5-4
 def judge_year(year):
-    if (year % 4 == 0) and (year % 100 != 0):
-        return "leap year"
-    elif (year % 4 == 0) and (year % 100 == 0):
-        return "leap year"
+    if (year % 400 == 0) or (year % 4 == 0 and year % 100 != 0):
+        print "Leap Year! "
     else:
-        return"Wrong"
+        return "Wrong! "
         
 
 # 5-5
@@ -39,7 +37,7 @@ def change():
 
 # 5-6    
 def calculate(expression):
-    expression = raw_input("Please enter the expression(example:1+2):")
+    expression = raw_input("Please enter the expression (example:1+2) : ")
     elements = expression.split()
     N1 = float(elements[0])
     N2 = float(elements[2])
@@ -57,7 +55,7 @@ def calculate(expression):
     elif operate == "%":
         return N1 % N2
     else:
-        print "Unknown expression!"
+        print "Unknown expression! "
      
  
 # 5-7
@@ -69,10 +67,10 @@ def tax():
     
 # 5-8
 def geometry_calculate():
-    length = int(raw_input("Enter the length:"))
-    width = int(raw_input("Enter the width:"))
-    height = int(raw_input("Enter the height:"))
-    radius = int(raw_input("Enter the radius:"))
+    length = int(raw_input("Enter the length: "))
+    width = int(raw_input("Enter the width: "))
+    height = int(raw_input("Enter the height: "))
+    radius = int(raw_input("Enter the radius: "))
     square_area = length * width
     cube_area = length * width * 6
     circle_area = math.pi * (radius ** 2)
@@ -99,13 +97,13 @@ def c_to_f(c):
 def resides():
     for i in range(0,21):
         if i % 2 != 0:
-            print "Odd number:",i
+            print "Odd number: ",i
         elif i % 2 == 0:
-            print "Even number:",i
+            print "Even number: ",i
             
 def residues_two():
-    N1 = int(raw_input("the first number:"))
-    N2 = int(raw_input("the second number:"))
+    N1 = int(raw_input("the first number: "))
+    N2 = int(raw_input("the second number: "))
     if (N1 % N2 == 0) or (N2 % N1 == 0):
         return True
     else:
@@ -121,8 +119,8 @@ def check():
 
 # 5-13
 def change_time():
-    hour = int(raw_input("Enter hours amount:"))
-    minute = int(raw_input("Enter minutes amount:"))
+    hour = int(raw_input("Enter hours amount: "))
+    minute = int(raw_input("Enter minutes amount: "))
     minutes = hour * 60 + minute
     return minutes
     
@@ -137,8 +135,8 @@ def bank_tax(money):
 
 # 5-15
 def divisor_and_multiple():
-    N1 = int(raw_input("the first number:"))
-    N2 = int(raw_input("the second number:"))
+    N1 = int(raw_input("the first number: "))
+    N2 = int(raw_input("the second number: "))
     divisor = []
     for num in range(1,N1) and range(1,N2):
         if N1 % num == 0 and N2 % num == 0:
@@ -159,8 +157,8 @@ def divisor_and_multiple():
     
 # 5-16
 def house_finance():
-    open = float(raw_input("Enter opening balance:"))
-    monthly = float(raw_input("Enter monthly payment:"))
+    open = float(raw_input("Enter opening balance: "))
+    monthly = float(raw_input("Enter monthly payment: "))
     Pymt = 0
     remain = open
     print "\t\tAmount\tRemaining"

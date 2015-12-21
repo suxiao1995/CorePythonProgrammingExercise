@@ -16,14 +16,14 @@ def rank(score):
         
 def main():
     try:
-        score = int(raw_input("Enter a score:"))
+        score = int(raw_input("Enter a score: "))
         if score in range(0,101):
             print rank(score)
         else:
-            print "The score must in 0~100!"
+            print "The score must in 0~100! "
             main()
     except:
-        print "Something was wrong,please enter a number!"
+        print "Something was wrong, please enter a number! "
         main()
             
 if __name__ == "__main__":

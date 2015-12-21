@@ -82,19 +82,19 @@ def rank():
 
 # 6-9
 def tran_time():
-    time = int(raw_input("Enter the minutes:"))
+    time = int(raw_input("Enter the minutes: "))
     hours,minutes = divmod(time,60)     
-    return "%d hours %d minutes." % (hours,minutes)
+    return "%d hours %d minutes. " % (hours,minutes)
     
 # 6-10
 def tran_string(): 
-    string = raw_input("Enter some string:")
+    string = raw_input("Enter some string: ")
     return string.swapcase()
     
     
 # 6-11
 def tran_ip():
-    numbers = raw_input("Enter a id number:")
+    numbers = raw_input("Enter a id number: ")
     n = 3
     # split the numbers with 3 length.
     address = [numbers[i:i+n] for i in xrange(0,len(numbers),n)]
@@ -107,6 +107,24 @@ def tran_ip():
 def findchr(string,char):
     
 # 6-15
+def date_days():
 
-    
-    
+    date1 = raw_input("Enter a start date (DD/MM/YYYY) :")
+    date2 = raw_input("Enter a end date (DD/MM/YYYY) :")
+        
+    days = int(date2[0:2]) - int(date1[0:2])
+    months = int(date2[3:5]) - int(date1[3:5])
+    years = int(date2[6:]) - int(date1[6:])
+
+    total_days = years * 365 + months * 30 + days
+
+    # leap year
+    for year in range(int(date1[6:]), int(date2[6:])+1):
+        if (year % 400 == 0) or (year % 4 == 0 and year % 100 != 0):
+            total_days += 1
+
+    # leap year in incomplete year
+    if years > 1 and int(date2[3:5]) > 2:
+        total_days += 1
+        
+    return total_days
