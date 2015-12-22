@@ -73,12 +73,23 @@ def rank():
         return "D"
     elif average_point < 60:
         return "F"
-    print sum,average_point
+    return sum,average_point
 
  
 # 6-5
 
+  
+# 6-6
+def myStrip(string):
+    # use while to clear all the space at the beginning or in the end a string.
+    while string[0] == " ":    
+        string = string[1:]
         
+    while string[-1] == " ":
+        string = string[:-1]
+        
+    return string
+    
 
 # 6-9
 def tran_time():
@@ -105,4 +116,39 @@ def tran_ip():
     
 # 6-12
 def findchr(string,char):
-    
+    if char in string:
+        i = 0
+        while i < len(string):
+            if string[i] == char:
+                return i
+            i += 1
+    else:
+        return -1
+        
+        
+def rfindchr(string,char):   
+    if char in string:
+        i = -1
+        while i < len(string):
+            if string[i] == char:
+                return i
+            i -= 1
+    else:
+        return -1
+
+def subchr(string,origchar,newchar):
+    if origchar in string:
+        return string.replace(origchar,newchar)
+    else:
+        return -1
+        
+        
+# 6-13
+
+
+# 6-17
+def myPop(list):
+    leave = list[-1]
+    del list[-1]
+    return leave
+
