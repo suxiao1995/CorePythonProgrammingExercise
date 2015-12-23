@@ -39,43 +39,41 @@ def idcheck():
 # 6-3
 def seq():
     nums = raw_input("Enter some numbers,apart with space.-->")
-    nums = nums.split()
-    index = []
+    num_list = [int(x) for x in nums.split()]
     
-    for num in nums:
-        index.append(int(num))
-    
-    result = sorted(index,reverse=True)
-    return result
+    num_list.sort(reverse=True)
+    return num_list
 
-# 字典序？
+# Lexicographical
 def seq2():
-    pass
+    nums = raw_input("Enter some numbers,apart with space.-->")
+    num_list = nums.split()
+    
+    num_list.sort(reverse=True) # equal to new_list = sorted(num_list,reverse=True)
+    return num_list
     
     
 # 6-4
-def rank():
-    points = [33,99,65,77,85,46,66]
-    sum = 0
-    # calculate sum
-    for i in points:
-        sum += int(i)
-    # division
-    average_point = sum / len(points)
-    
-    if average_point in range(90,101):
-        return "A"
-    elif average_point in range(80,90):
-        return "B"
-    elif average_point in range(70,80):
-        return "C"
-    elif average_point in range(60,70):
-        return "D"
-    elif average_point < 60:
-        return "F"
-    return sum,average_point
+def rank_grade(mark_list):
 
- 
+    def rank(mark):
+       
+        if mark in range(90,101):
+            return "A"
+        elif mark in range(80,90):
+            return "B"
+        elif mark in range(70,80):
+            return "C"
+        elif mark in range(60,70):
+            return "D"
+        elif mark < 60:
+            return "F"
+
+    average = sum(mark_list) / float(len(mark_list))
+    rank_list = [rank(mark) for mark in mark_list]
+    return average,rank_list
+
+    
 # 6-5
 
   
