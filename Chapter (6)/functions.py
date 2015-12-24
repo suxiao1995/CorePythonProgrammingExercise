@@ -1,40 +1,6 @@
 # _*_ coding:utf-8 _*_ 
 
 # Chapter 6
-import string
-
-from keyword import *
-
-
-# 6-2
-def idcheck():
-    alphas = string.letters + '_'
-    nums = string.digits
-
-    print "Welcome to the Identifier Checker v2.0."
-    print "Testees must be at least 1 chars long."
-    myInput = raw_input("Identifier to check?")
-    
-    if len(myInput) > 0:
-        
-        if myInput[0] not in alphas:
-            print "Invalid:first symbol must be alphabetic!"
-        
-        # check if the identifier in the keyword list-->(kwlist)
-        elif myInput in kwlist:
-            print "Invalid:Identifier shouldn't be keyword!"
-            
-        else:
-        
-            for otherChar in myInput[1:]:
-            
-                if otherChar not in alphas + nums:
-                    print "Invalid:remaining symbols must be alphanumeric"
-                    break
-                
-            else:
-                print "okay as an identifier!"
-                    
 
 # 6-3
 def seq():
@@ -74,9 +40,41 @@ def rank_grade(mark_list):
     return average,rank_list
 
     
-# 6-5
+# 6-5(a)
+def two_print():
+    pass
 
-  
+
+# 6-5(b)
+def comStrings():
+    str1 = str1.lower()
+    str2 = str2.lower()
+   
+    j = 0
+    for i in str1:
+        if i == str2[j]:
+            pass
+        else:
+            return "Wrong!"
+        j += 1
+        
+    return "The same!"
+
+# 6-5(c)
+def is_palindrome(str):
+    import string
+    s_list = [char.lower() for char in str if char in string.ascii_lowercase]
+    
+    if len(s_list) <= 1:
+        return True
+    else:
+        return s_list[0] == s_list[-1] and is_palindrome(s_list[1:-1])  # recursion
+        
+# 6-5(d)    
+def to_palindrome(str):
+    
+    return str + str[::-1] # Reverse stepping sliced
+    
 # 6-6
 def myStrip(string):
     # use while to clear all the space at the beginning or in the end a string.
@@ -150,3 +148,7 @@ def myPop(list):
     del list[-1]
     return leave
 
+    
+# 6-16
+
+# 6-19
