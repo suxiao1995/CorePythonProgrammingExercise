@@ -41,8 +41,27 @@ def rank_grade(mark_list):
 
     
 # 6-5(a)
-def two_print():
-    pass
+def print_str():
+    from time import sleep
+    string = raw_input("Enter a string:")
+    i = 0
+    length = len(string)
+    
+    if length % 2 == 0:
+        s_center = length / 2
+    else:
+        s_center = (length / 2) + 1
+    
+    s_back = string[s_center:]
+    s_fore = string[:s_center]
+    
+    i = 0
+    while i < (s_center + 1):
+        # %20s%s%-20s: the number between '%' and 's' means to fill up 20 spaces.
+        print "%20s%s%-20s" % (string[s_center - i:s_center],string[s_center],
+                            string[s_center + 1:s_center + i])
+        i += 1                           
+        sleep(1)
 
 
 # 6-5(b)
