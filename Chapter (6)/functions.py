@@ -159,8 +159,27 @@ def subchr(string,origchar,newchar):
         
         
 # 6-13
+# by soulforever
+def atoc(c_str):
+    # judge pure real number
+    if 'j' not in c_str:
+        return complex(float(c_str), 0)
+        
+    index = 0
+    for i, c in enumerate(c_str):
+        if c in ('+', '-') and i != 0 and c_str[i-1] not in ('e', 'E'):
+                index = i
+                break
+    # judge pure imaginary number
+    if index == 0:
+        real = 0 
+    else:
+        real = float(c_str[:index])
+        
+    imag = float(c_str[index:-1])
+    return complex(real, imag)
 
-
+    
 # 6-17
 def myPop(list):
     leave = list[-1]
@@ -170,4 +189,27 @@ def myPop(list):
     
 # 6-16
 
+
 # 6-19
+def multi_print(data):
+    
+    lines = int(raw_input('Lines:'))
+    index = raw_input("col/row:")
+    length = len(data)
+    line_length = int(round(float(length) / float(lines)))
+    
+    s_list = []
+    if index == "col":
+        for i in range(0,lines):
+            s_list.append(data[i])
+            j = lines
+            while j < len(data):
+                s_list.append(data[i+j])
+                j += lines
+    else:
+        s_list = data
+
+    i = 0
+    while i < len(data):
+        print s_list[i:line_length + i]
+        i += line_length

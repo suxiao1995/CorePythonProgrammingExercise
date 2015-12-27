@@ -18,8 +18,10 @@ while i < len(fac_list):
     # del the num_num's divisor in fac_list
     if num_num % fac_list[i] == 0:
         del fac_list[i]
-   
-    i = i + 1
+    # when delete a item in a list, the index in the list changes
+    # add a else here ,only work when we found an odd number     
+    else:
+        i = i + 1 # turn the index to next item (keep the odd number)
     
 # print the remaining items in fac_list
 print "AFTER: ",fac_list
