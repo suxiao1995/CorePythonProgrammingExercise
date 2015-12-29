@@ -179,15 +179,37 @@ def atoc(c_str):
     imag = float(c_str[index:-1])
     return complex(real, imag)
 
-    
+# 6-16 
+def matrix(M,N,choice):
+    """
+    input two matrix, their length must be the same.
+    then input the operation choice: "add"/"multi"
+    """
+    if len(M) != len(N):
+        print "length of two matrix must be the same!"
+        
+    m3 = zip(M,N)
+    result =[]
+
+    i = 0 
+    while i < len(m3):
+        if choice == "add":
+            add = m3[i][0] + m3[i][1]
+            result.append(add)
+            i += 1
+        else:   # multi
+            multi = m3[i][0] * m3[i][1]
+            result.append(multi)
+            i += 1
+        
+    return result
+
+   
 # 6-17
 def myPop(list):
     leave = list[-1]
     del list[-1]
     return leave
-
-    
-# 6-16
 
 
 # 6-19
