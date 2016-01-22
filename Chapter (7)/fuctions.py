@@ -13,4 +13,10 @@ english = ["one","two","three","four","five"]
 result = dict(zip(num,english))
 
 
+# 7-7
+def reverse_dict(dict1):
+    dict2 = {}
+    for eachkey in dict1:
+        dict2[dict1[eachkey]] = eachkey
+    return dict2
 
