@@ -1,9 +1,15 @@
 # _*_ coding:utf-8 _*_ 
 import time
-import os
+import sys
+import Tkinter
+import tkMessageBox
+from PIL import Image, ImageTk
+
+
 db = {}
 timecheck = {}
-
+file = open("data.dat", 'a+')
+file.read()
 
 def newuser():
     prompt = "login desired: "
@@ -23,6 +29,9 @@ def newuser():
         else:
             break
     db[name] = pwd
+    print "Sign up success! Please sign in!"
+    timecheck["time"] = ""
+    timecheck["timeStr"] = ""
 
 
 def olduser():
@@ -69,9 +78,10 @@ def management():
             name = raw_input("Enter user name: ")
             try:    
                 del db[name]
+                print "\nSuccess!"
             except:
                 print "\nSomething wrong!"
-            print "\nSuccess!"
+
         
         elif choice == "2":
             for eachkey in db.keys():
@@ -105,15 +115,68 @@ def showmenu():
                 print "Invalid option, try again!"
             else: 
                 chosen = True
-            
+
             if choice == "q":
-                done = True
+                print "GoodBye!"
+                sys.exit()
             elif choice == "s":
                 newuser()
             elif choice == "l":
                 olduser()
             elif choice == "m":
                 management()
-    
-if __name__ == "__main__":
-    showmenu()
+
+
+root = Tkinter.Tk()
+root.geometry('400x300+300+100')
+root.title('QQ')
+
+root.columnconfigure(0, pad=5)
+root.columnconfigure(1, pad=5)
+root.columnconfigure(2, pad=5)
+root.columnconfigure(3, pad=5)
+root.columnconfigure(4, pad=5)
+root.columnconfigure(5, pad=5)
+root.columnconfigure(6, pad=5)
+root.columnconfigure(7, pad=5)
+root.rowconfigure(0, pad=5)
+root.rowconfigure(1, pad=5)
+root.rowconfigure(2, pad=5)
+root.rowconfigure(3, pad=5)
+root.rowconfigure(4, pad=5)
+root.rowconfigure(5, pad=5)
+root.rowconfigure(6, pad=5)
+root.rowconfigure(7, pad=5)
+
+img = Image.open(r'C:\Users\Administrator\Desktop\qq.jpg')
+qq = ImageTk.PhotoImage(img)
+head = Tkinter.Label(root, image=qq)
+head.image = qq
+head.grid(rowspan=3, columnspan=5)
+
+img = Image.open(r'C:\Users\Administrator\Desktop\qe.jpg')
+e = ImageTk.PhotoImage(img)
+head = Tkinter.Label(root, image=e)
+head.image = e
+head.grid(row=4, rowspan=2, columnspan=1)
+
+name_entry = Tkinter.Entry(root)
+name_entry.grid(row=4, column=0, columnspan=5, ipadx=15, ipady=3)
+name_entry.focus_get()
+
+lb1 = Tkinter.Label(root, text="注册帐号", fg="#33a0ff", width=6)
+lb1.grid(row=4, column=2)
+
+pwd_entry = Tkinter.Entry(root,show="•")
+pwd_entry.grid(row=5, columnspan=5,  ipadx=15, ipady=3)
+
+lb2 = Tkinter.Label(root, text="找回密码", fg="#33a0ff", width=6)
+lb2.grid(row=5, column=2)
+
+bt = Tkinter.Button(root, text="登 录", command=None, bg="#33a0ff", fg="white")
+bt.grid(row=7, column=1, columnspan=1, ipadx=60, ipady=2, pady=5)
+
+
+root.mainloop()
+# if __name__ == "__main__":
+#    showmenu()
