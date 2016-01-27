@@ -22,6 +22,30 @@ def revervse_dict(dict1):
     return dict2
 
 
+# 7-8
+def sort_data():
+    from operator import itemgetter
+    name_list = []
+    while True:
+        name = raw_input("Enter the name and number(Jack 34), enter a dot to quit:")
+        if name == ".":
+            break
+        name = name.split()
+        name[1] = int(name[1])
+        name_list.append(name)
+
+    print """
+    Select output index:
+    (1) By Name
+    (2) By number"""
+
+    choice = int(raw_input(">"))
+    if choice == 1:
+        print sorted(name_list, key=itemgetter(0))
+    elif choice == 2:
+        print sorted(name_list, key=itemgetter(1))
+
+
 # 7-9
 def tr(srcstr, dststr, string, lowercase=False):
     if lowercase == True:

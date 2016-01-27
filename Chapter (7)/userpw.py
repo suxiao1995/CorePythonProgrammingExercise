@@ -1,135 +1,128 @@
 # _*_ coding:utf-8 _*_ 
 import time
+import string
 import sys
+import os
 import Tkinter
 import tkMessageBox
-from PIL import Image, ImageTk
+import hashlib
 
+from PIL import Image, ImageTk
 
 db = {}
 timecheck = {}
-file = open("data.dat", 'a+')
-file.read()
 
 def newuser():
-    prompt = "login desired: "
-    while True:
-        name = raw_input(prompt)
-        if name in db:
-            prompt = "Name taken, try another: "
-            continue
-        else:
-            break
-    
-    prompt = "Enter your password: "
-    while True:
-        pwd = raw_input(prompt)
+    namelist = string.lowercase + string.digits
+    name = Tkinter.Entry.get(name_entry)
+
+    name_pass = True
+    for i in name:
+        if i not in namelist:
+            label = tkMessageBox.showinfo("Error", "用户名仅可由小写字母和数字组成。")
+            name_pass = False
+
+    if name in db:
+        label = tkMessageBox.showinfo("Error", "换一个吧，这个已经被使用了。")
+        name_pass = False
+    if name_pass:
+        pwd = Tkinter.Entry.get(pwd_entry)
         if len(pwd) < 6:
-            print "Too short!"
+            label = tkMessageBox.showinfo("Error", "密码太短了……")
         else:
-            break
-    db[name] = pwd
-    print "Sign up success! Please sign in!"
-    timecheck["time"] = ""
-    timecheck["timeStr"] = ""
+            pwd = hashlib.sha224(pwd).hexdigest() # encrypt
+            db[name] = pwd
+            label = tkMessageBox.showinfo("Success", "注册成功，请登录。")
+            timecheck["time"] = ""
+            timecheck["timeStr"] = ""
 
 
 def olduser():
-    while True:
-        name = raw_input('login: ')
-        pwd = raw_input('password: ')
-        
-        if len(name) == 0:
-            print "Invalid name!"
-        elif len(pwd)== 0:
-            print  "Invalid password!"
-        else:
-            break
 
-    passwd = db.get(name)
-    
-    if passwd == pwd:
-        print "Welcome back, %s" % name
-        try:
-            last = timecheck.get("time")
-            now = time.time()
-            passtime = int(now - last)
+    name = Tkinter.Entry.get(name_entry)
+    pwd = Tkinter.Entry.get(pwd_entry)
 
-            if passtime in range(1, 3600 * 4):
-                print "You already logged in at: %s" % timecheck.get("timeStr")
-        except:
-            print "First time!"
-        timecheck["time"] = time.time()
-        timecheck["timeStr"] = time.asctime()
-
+    if len(name) == 0:
+        label = tkMessageBox.showinfo("Error", "用户名无效！")
+    elif len(pwd)== 0:
+        label = tkMessageBox.showinfo("Error", "密码无效！")
     else:
-        print "Login incorrect. "
-        
+        passwd = db.get(name)
+        pwd = hashlib.sha224(pwd).hexdigest() # decrypt
 
-def management():
-    prompt = """
-    (1) Delete a user.
-    (2) Show the user list.
-    (3) Back main menu
-    Enter your choice:"""
-    while True:
-        choice = raw_input(prompt)
-        if choice == "1":
-            name = raw_input("Enter user name: ")
-            try:    
-                del db[name]
-                print "\nSuccess!"
-            except:
-                print "\nSomething wrong!"
+        if passwd == pwd:
+            label = tkMessageBox.showinfo("Info", "欢迎回来，%s" % name)
 
-        
-        elif choice == "2":
-            for eachkey in db.keys():
-                    print "\nname:%s password:%s" % (eachkey,db[eachkey])
-                
-        elif choice == "3":
-            showmenu()
-            
-        else:
-            print "Invalid choice!"
-
-
-def showmenu():
-    prompt = """
-    (S)ign up
-    (L)ogin
-    (M)anage
-    (Q)uit
-    Enter your choice: """
-    
-    done = False
-    while not done:
-        chosen = False
-        while not chosen:
             try:
-                choice = raw_input(prompt).strip()[0].lower()
-            except (EOFError, KeyboardInterrupt):
-                choice = "q"
-            print "\nYou picked: [%s]" % choice
-            if choice not in "qslm":
-                print "Invalid option, try again!"
-            else: 
-                chosen = True
+                last = timecheck.get("time")
+                now = time.time()
+                passtime = int(now - last)
 
-            if choice == "q":
-                print "GoodBye!"
-                sys.exit()
-            elif choice == "s":
+                if passtime in range(1, 3600 * 4):
+                    label = tkMessageBox.showinfo("Info", "你已经在以下时间登录过: %s" % timecheck.get("timeStr"))
+            except:
+                pass
+            timecheck["time"] = time.time()
+            timecheck["timeStr"] = time.asctime()
+
+        else:
+            if tkMessageBox.askokcancel("Error", "登录失败，是否还未注册，请点击确定注册新用户。"):
                 newuser()
-            elif choice == "l":
-                olduser()
-            elif choice == "m":
-                management()
+
+
+def del_user():
+    top = Tkinter.Toplevel()
+    top.geometry("400x100+400+500")
+
+    global del_entry
+
+    del_label = Tkinter.Label(top, text="输入要删除的用户名")
+    del_entry = Tkinter.Entry(top)
+    del_bt = Tkinter.Button(top, text="Delete", command=del_this_user)
+    del_label.pack()
+    del_entry.pack()
+    del_bt.pack()
+
+def del_this_user():
+
+    name = Tkinter.Entry.get(del_entry)
+    try:
+        del db[name]
+        label = tkMessageBox.showinfo("Info", "删除成功")
+    except:
+        label = tkMessageBox.showinfo("Error", "Something Wrong!")
+
+
+def show_user():
+    top = Tkinter.Toplevel()
+    top.geometry("400x300+400+500")
+
+    userlist=[]
+    for eachkey in db.keys():
+                    userlist.append("\nname:%s password:%s" % (eachkey,db[eachkey]))
+
+    show_userlist = Tkinter.Label(top, text=userlist)
+    show_userlist.pack()
+
+def resource_path(relative_path):
+    """
+    定义一个读取相对路径的函数
+    引用文件用如下格式：resource_path('resources/complete.wav')
+    然后在生成的.spec文件exe = EXE()中加入下面这行：
+    [('resources/complete.wav',r'C:\Users\Administrator\resources\complete.wav','music'),],
+    列表中的三项分别为代码中的引用，文件实际的地址，类别
+    这样打包后文件会被正确引用
+    """
+    if hasattr(sys, "_MEIPASS"):
+        base_path = sys._MEIPASS
+    else:
+        base_path = os.path.abspath(".")
+    return os.path.join(base_path, relative_path)
 
 
 root = Tkinter.Tk()
-root.geometry('400x300+300+100')
-root.title('QQ')
+root.geometry('500x250+300+100')
+root.title('PP')
 
 root.columnconfigure(0, pad=5)
 root.columnconfigure(1, pad=5)
@@ -148,35 +141,34 @@ root.rowconfigure(5, pad=5)
 root.rowconfigure(6, pad=5)
 root.rowconfigure(7, pad=5)
 
-img = Image.open(r'C:\Users\Administrator\Desktop\qq.jpg')
-qq = ImageTk.PhotoImage(img)
-head = Tkinter.Label(root, image=qq)
-head.image = qq
+# I put a pic here (head.jpg)
+img = Image.open(resource_path('head.jpg'))
+icon = ImageTk.PhotoImage(img)
+head = Tkinter.Label(root, image=icon)
+head.image = icon
 head.grid(rowspan=3, columnspan=5)
-
-img = Image.open(r'C:\Users\Administrator\Desktop\qe.jpg')
-e = ImageTk.PhotoImage(img)
-head = Tkinter.Label(root, image=e)
-head.image = e
-head.grid(row=4, rowspan=2, columnspan=1)
 
 name_entry = Tkinter.Entry(root)
 name_entry.grid(row=4, column=0, columnspan=5, ipadx=15, ipady=3)
 name_entry.focus_get()
 
-lb1 = Tkinter.Label(root, text="注册帐号", fg="#33a0ff", width=6)
-lb1.grid(row=4, column=2)
+lb1 = Tkinter.Label(root, text="帐号", fg="#33a0ff", width=6)
+lb1.grid(row=4, column=1)
 
 pwd_entry = Tkinter.Entry(root,show="•")
 pwd_entry.grid(row=5, columnspan=5,  ipadx=15, ipady=3)
 
-lb2 = Tkinter.Label(root, text="找回密码", fg="#33a0ff", width=6)
-lb2.grid(row=5, column=2)
+lb2 = Tkinter.Label(root, text="密码", fg="#33a0ff", width=6)
+lb2.grid(row=5, column=1)
 
-bt = Tkinter.Button(root, text="登 录", command=None, bg="#33a0ff", fg="white")
-bt.grid(row=7, column=1, columnspan=1, ipadx=60, ipady=2, pady=5)
+bt1 = Tkinter.Button(root, text="登 录", command=olduser, bg="#33a0ff", fg="white")
+bt1.grid(row=7, column=2, columnspan=1, ipadx=30, ipady=2, pady=5)
 
+menubar = Tkinter.Menu(root)
+root.config(menu=menubar)
+managemenu = Tkinter.Menu(menubar)
+menubar.add_cascade(label="管理", menu=managemenu)
 
+managemenu.add_command(label="删除用户", command=del_user)
+managemenu.add_command(label="用户列表", command=show_user)
 root.mainloop()
-# if __name__ == "__main__":
-#    showmenu()
