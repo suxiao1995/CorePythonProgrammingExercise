@@ -8,10 +8,57 @@ dict2 = {"hobby":"reading"}
 dict1.update(dict2)
 
 
+# 7-3
+def dict_index():
+    s = {"b":2, "c":3, "a":4}
+    keys = sorted(s.keys())
+    values = sorted(s.values())
+    print keys # (a)
+
+    for key in keys:
+        print s[key]    # (b)
+
+    for value in values:
+        print s[value]  #(c)
+
+
 # 7-4
 num = [1,2,3,4,5]
 english = ["one","two","three","four","five"]
 result = dict(zip(num,english))
+
+
+# 7-6
+def invest_db():
+    prompt = """
+    Please input the stock, purchase price, current price, minimum index:
+    (separate with space, enter a dot to quit.)
+    >:"""
+    db_list = []
+    while True:
+        date = raw_input(prompt)
+        if date == ".":
+            break
+        db_list.append(date.split())
+
+    print """Please choose a item to index
+          (0)stock
+          (1)purchase price
+          (2)current price
+          (3)minimum index
+          (4)price chage
+          Enter the number:"""
+
+    choice = int(raw_input(">"))
+    new_list = sorted(db_list, key=lambda item:item[choice])
+    db_dict = {}
+
+    for item in new_list:
+        change = int(item[2]) - int(item[1])
+        item.append(str(change))
+        db_dict[item[choice]] = item
+
+    return db_dict
 
 
 # 7-7
@@ -93,3 +140,57 @@ def rot13():
     """ % (string1, string2)
 
 
+# 7-13
+def random_set():
+    import random
+
+    i = 0
+    set_A = set()
+    set_B = set()
+
+    while i < 10:
+        set_A.add(random.randrange(0,10))
+        set_B.add(random.randrange(0,10))
+        i += 1
+
+    return set_A | set_B, set_A & set_B
+
+
+# 7-14
+def test_set():
+    import random
+
+    i = 0
+    set_A = set()
+    set_B = set()
+
+    while i < 10:
+        set_A.add(random.randrange(0,10))
+        set_B.add(random.randrange(0,10))
+        i += 1
+
+    print "set A is:",set_A
+    print "set B is:",set_B
+
+    or_set = set_A | set_B
+    and_set = set_A & set_B
+    print or_set
+    print and_set
+    prompt1 = "set_A | set_B:"
+    prompt2 = "set_A & set_B:"
+
+    answer_or = False
+    answer_and = False
+    i = 0
+    while i < 3:
+        answer1 = raw_input(prompt1)
+        answer2 = raw_input(prompt2)
+        print answer1
+        print answer2
+        if answer1 == or_set:
+            answer_or = True
+        if answer2 == and_set:
+            answer_and = True
+        if (answer_and == True) and (answer_or == True):
+            break
+        i += 1
