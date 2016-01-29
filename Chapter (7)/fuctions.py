@@ -164,7 +164,7 @@ def test_set():
     set_A = set()
     set_B = set()
 
-    while i < 10:
+    while i < 11:
         set_A.add(random.randrange(0,10))
         set_B.add(random.randrange(0,10))
         i += 1
@@ -174,8 +174,7 @@ def test_set():
 
     or_set = set_A | set_B
     and_set = set_A & set_B
-    print or_set
-    print and_set
+
     prompt1 = "set_A | set_B:"
     prompt2 = "set_A & set_B:"
 
@@ -185,8 +184,6 @@ def test_set():
     while i < 3:
         answer1 = raw_input(prompt1)
         answer2 = raw_input(prompt2)
-        print answer1
-        print answer2
         if answer1 == or_set:
             answer_or = True
         if answer2 == and_set:
@@ -194,3 +191,23 @@ def test_set():
         if (answer_and == True) and (answer_or == True):
             break
         i += 1
+    else:
+        print "set_A | set_B:", or_set
+        print "set_A & set_B:", and_set
+
+def sub_set():
+    import random
+
+    i = 0
+    set_A = set()
+    set_B = set()
+
+    while i < 11:
+        set_A.add(random.randrange(0,10))
+        i += 1
+
+    while i < random.randrange(0, 10):
+        
+
+    print "set A is:",set_A
+    print "set B is:",set_B
