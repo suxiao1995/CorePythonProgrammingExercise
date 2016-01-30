@@ -1,7 +1,6 @@
 # _*_ coding:utf-8 _*_ 
 
 
-
 # 7-1
 dict1 = {"name":"lihui","age":"21"}
 dict2 = {"hobby":"reading"}
@@ -10,7 +9,7 @@ dict1.update(dict2)
 
 # 7-3
 def dict_index():
-    s = {"b":2, "c":3, "a":4}
+    s = {"b": 2, "c": 3, "a": 4}
     keys = sorted(s.keys())
     values = sorted(s.values())
     print keys # (a)
@@ -195,6 +194,7 @@ def test_set():
         print "set_A | set_B:", or_set
         print "set_A & set_B:", and_set
 
+# unsolved!
 def sub_set():
     import random
 
@@ -206,8 +206,37 @@ def sub_set():
         set_A.add(random.randrange(0,10))
         i += 1
 
-    while i < random.randrange(0, 10):
-        
+    j = 0
+    while j < random.randrange(0, 10):
+        set_B.add(random.randrange(0, 20))
+        j += 1
 
     print "set A is:",set_A
     print "set B is:",set_B
+    print "set B in set A?"
+
+    if set_B < set_A :
+        answer = "Y"
+    else:
+        answer = "N"
+    user_answer = raw_input("Y/N?")
+
+    print "The answer is:", answer
+
+
+# 7-15
+def set_calculator():
+    A = set()
+    B = set()
+
+    input1 = raw_input("Enter set A:")
+    input2 = raw_input("Enter set B:")
+
+    for i in input1.split():
+        A.add(int(i))
+    for i in input2.split():
+        B.add(int(i))
+
+    operation = raw_input("Enter operation(example: A | B):")
+
+    print eval(operation)
