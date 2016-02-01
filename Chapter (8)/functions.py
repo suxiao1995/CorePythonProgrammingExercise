@@ -25,41 +25,48 @@ def get_factors(num):
 
 # 8-6
 def prime_factors(num): # unsolved #_#
+    import sys
+    from operator import mul
 
     result = []
     def get_prime(f_list):
-        print "wa",f_list
         if f_list == None:
             return 1
         for i in f_list:
-            print i
-            print is_prime(i)
             if is_prime(i) == True:
-                return i
+                result.append(i)
             else:
                 f_list = prime_factors(i)
                 get_prime(f_list)
 
+        result_multi = reduce(mul, result)
+        if result_multi == num:
+            return 1
+
     factors = get_factors(num)[1: -1]
     while True:
-        if len(factors) > 1:
+
+        if len(factors) == 1:
+            result.append(factors[0])
+            result.append(factors[0])
+            break
+
+        elif len(factors) % 2 == 0:
             half = len(factors)/2
-            f_list = factors[half-1: half+1]
-            print f_list
+            f_list = factors[half-1: half]
             prime = get_prime(f_list)
             if prime == 1:
                 break
-            result.append(prime)
-            break
         else:
-            result.append(factors[0])
-            result.append(factors[0])
-            break
+            half = len(factors)/2
+            f_list = factors[half]
+            prime = get_prime(f_list)
+            if prime == 1:
+                break
 
-    print result
     return result
 
-# print prime_factors(20)
+print prime_factors(20)
 
 # 8-7
 def is_perfect(num):
@@ -86,3 +93,69 @@ def fibonacci(N):
     return fib_list[N - 1]
 
 # 8-10
+def count_text(words):
+    result = {"vowel":0, "consonant":0, "words":0}
+    for i in words.strip():
+
+        if i in "aeiou":
+            result["vowel"] += 1
+        elif i in "bcdfghjklmnpqrstvwxyz":
+            result["consonant"] += 1
+    result["words"] = len(words.split())
+
+    return result
+
+# 8-11
+def input_name():
+    names = []
+    total = int(raw_input("Enter total number of names:"))
+
+    wrong_time = 0
+    i = 0
+    while i < total:
+        name = raw_input("Please enter name %d:" % i)
+        name = name.split()
+        if len(name) == 2 and name[0][-1] == ",":
+            names.append(name)
+        else:
+            wrong_time += 1
+            print "Wrong format... should be Last, First"
+            print "You have done this %d time(s) already" % wrong_time
+
+            if "," not in name[0]:
+                name[0] = name[0]+","
+            if name[1] == ",":
+                del name[1]
+            if name[1][0] == ",":
+                name[1] = name[1][1:]
+            if name[1][-1] == ",":
+                name[1] = name[1][:-1]
+
+            names.append(name)
+
+        i += 1
+    print "The sorted names list (by last name) is:"
+    names = sorted(names, key=lambda last_name: last_name[1])
+    for name in names:
+        print "%s %s" % (name[0], name[1])
+
+
+# 8-12
+def print_sth():
+    print "-" * 10
+    start = int(raw_input("Enter start value:"))
+    end = int(raw_input("Enter end value:"))
+    if end > 33:
+        print "DEC\t\tBIN\t\tOCT\t\tHEX\t\tASCII"
+        print "-" * 40
+
+        for i in range(start, end+1):
+            print "{:d}\t\t{:b}\t\t{:o}\t\t{:x}\t\t{:c}".format(i, i, i, i, i)
+
+    else:
+        print "DEC\t\tBIN\t\tOCT\t\tHEX"
+        print "-" * 30
+
+        for i in range(start, end+1):
+            print "{:d}\t\t{:b}\t\t{:o}\t\t{:x}".format(i, i, i, i)
+
