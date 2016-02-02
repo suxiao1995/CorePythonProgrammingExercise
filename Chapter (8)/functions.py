@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 __author__ = 'lihui'
 
+
 # 8-2
 def a_range(f, t, i):
     return range(f, t, i)
@@ -20,53 +21,41 @@ def is_prime(num):
 
 # 8-5
 def get_factors(num):
-    return [x for x in range(1,num+1) if num % x == 0]
+    return [x for x in range(1, num+1) if num % x == 0]
 
 
 # 8-6
-def prime_factors(num): # unsolved #_#
-    import sys
-    from operator import mul
+def prime_factors(num):     # finally solved... #_#
 
     result = []
+
     def get_prime(f_list):
-        if f_list == None:
-            return 1
+
         for i in f_list:
-            if is_prime(i) == True:
+            if is_prime(i) == 1:    # 1 equals True
                 result.append(i)
             else:
-                f_list = prime_factors(i)
-                get_prime(f_list)
+                get_half_factors(i)
 
-        result_multi = reduce(mul, result)
-        if result_multi == num:
-            return 1
+    def get_half_factors(number):
 
-    factors = get_factors(num)[1: -1]
-    while True:
-
+        factors = get_factors(number)[1: -1]   # 8-5
         if len(factors) == 1:
-            result.append(factors[0])
-            result.append(factors[0])
-            break
+            f_list = [factors[0], factors[0]]
 
         elif len(factors) % 2 == 0:
             half = len(factors)/2
-            f_list = factors[half-1: half]
-            prime = get_prime(f_list)
-            if prime == 1:
-                break
+            f_list = factors[half-1: half+1]
+
         else:
             half = len(factors)/2
-            f_list = factors[half]
-            prime = get_prime(f_list)
-            if prime == 1:
-                break
+            f_list = [factors[half], factors[half]]
 
+        get_prime(f_list)
+
+    get_half_factors(num)
     return result
 
-print prime_factors(20)
 
 # 8-7
 def is_perfect(num):
@@ -77,33 +66,37 @@ def is_perfect(num):
 
 
 # 8-8
-def factorial(N):
-    if N == 1:
+def factorial(n):
+    if n == 1:
         return 1
-    return N * factorial(N - 1)
+    return n * factorial(n - 1)
+
 
 # 8-9
-def fibonacci(N):
+def fibonacci(n):
     fib_list = [1, 1]
     i = 0
-    while i < N - 1:
+    while i < n - 1:
         last = fib_list[-1] + fib_list[-2]
         fib_list.append(last)
         i += 1
-    return fib_list[N - 1]
+    return fib_list[n - 1]
+
 
 # 8-10
 def count_text(words):
-    result = {"vowel":0, "consonant":0, "words":0}
+    result = {"vowel": 0, "consonant": 0, "words": 0}
     for i in words.strip():
 
         if i in "aeiou":
             result["vowel"] += 1
         elif i in "bcdfghjklmnpqrstvwxyz":
             result["consonant"] += 1
+
     result["words"] = len(words.split())
 
     return result
+
 
 # 8-11
 def input_name():
@@ -123,7 +116,7 @@ def input_name():
             print "You have done this %d time(s) already" % wrong_time
 
             if "," not in name[0]:
-                name[0] = name[0]+","
+                name[0] += ","
             if name[1] == ",":
                 del name[1]
             if name[1][0] == ",":
@@ -158,4 +151,3 @@ def print_sth():
 
         for i in range(start, end+1):
             print "{:d}\t\t{:b}\t\t{:o}\t\t{:x}".format(i, i, i, i)
-
