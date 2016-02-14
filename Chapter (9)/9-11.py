@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import pickle as p
-
+import re
 __author__ = 'lihui'
 
 # 9-11
@@ -121,6 +121,6 @@ def save_file():
 
     print bookmarks_list
 
-
+    p = re.compile("[a-z_0-9]+@[a-z0-9]+[.]{1}[a-z]+") # email address
 if __name__ == "__main__":
     menu()

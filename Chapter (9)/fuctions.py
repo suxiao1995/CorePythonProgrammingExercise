@@ -175,7 +175,14 @@ def finance():
     return account_dict
 
 
-
-
-
+# import re
+# while True:
+#     p = re.compile("(www.)[a-z0-9_]+[.]{1}[a-z]+[.]?[a-z]+")
+#     # p = re.compile("[a-z_0-9]+@[a-z0-9]+[.]{1}[a-z]+[.]?[a-z]*")
+#     t = raw_input(">")
+#     m = p.match(t)
+#     if m:
+#         print m.group()
+#     else:
+#         print "No Match"
 
