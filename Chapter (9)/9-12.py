@@ -6,19 +6,14 @@ import os
 import Tkinter
 import tkMessageBox
 import hashlib
+import shelve
 
-import pickle as p
 from PIL import Image, ImageTk
 
-userlist_filename = "userlist.date"
-try:
-    f = open(userlist_filename)
-    userlist = p.load(f)
-    f.close()
-except:
-    userlist = {}
+userlist_filename = "user_datebase"
 
 def newuser():
+    userlist = shelve.open(userlist_filename)
     namelist = string.lowercase + string.digits
     name = Tkinter.Entry.get(name_entry)
 
@@ -37,12 +32,12 @@ def newuser():
             label = tkMessageBox.showinfo("Error", "密码太短了……")
         else:
             pwd = hashlib.sha224(pwd).hexdigest() # encrypt
-            userlist[name] = pwd
             label = tkMessageBox.showinfo("Success", "注册成功，请登录。")
-            userlist[name] = [pwd,]
+            userlist[name] = [pwd, None, None]
+            userlist.close()
 
 def olduser():
-
+    userlist = shelve.open(userlist_filename)
     name = Tkinter.Entry.get(name_entry)
     pwd = Tkinter.Entry.get(pwd_entry)
 
@@ -71,13 +66,11 @@ def olduser():
             except:
                 pass
 
-            userlist[name].append(time.time())
-            userlist[name].append(time.asctime())
-
-
-            f = open(userlist_filename, 'a')
-            p.dump(userlist, f)
-            f.close()
+            temp = userlist[name]
+            temp[1] = time.time()
+            temp[2] = time.asctime()
+            userlist[name] = temp
+            userlist.close()
 
         else:
             if tkMessageBox.askokcancel("Error", "登录失败，是否还未注册，请点击确定注册新用户。"):
@@ -98,7 +91,7 @@ def del_user():
     del_bt.pack()
 
 def del_this_user():
-
+    userlist = shelve.open(userlist_filename)
     name = Tkinter.Entry.get(del_entry)
     try:
         del userlist[name]
@@ -106,14 +99,19 @@ def del_this_user():
     except:
         label = tkMessageBox.showinfo("Error", "Something Wrong!")
 
+    userlist.close()
+
 
 def show_user():
+    userlist = shelve.open(userlist_filename)
+
     top = Tkinter.Toplevel()
     top.geometry("800x300+400+500")
 
     show_list = []
     for name in userlist.keys():
         show_list.append((name, userlist[name][0], userlist[name][1]))
+    userlist.close()
 
     show_userlist = Tkinter.Label(top, text=show_list)
     show_userlist.pack()
