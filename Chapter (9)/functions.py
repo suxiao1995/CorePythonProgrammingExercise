@@ -186,3 +186,102 @@ def finance():
 #     else:
 #         print "No Match"
 
+# 9-13
+def print_argv():
+    import sys
+
+    for i in sys.argv:
+        print i
+
+
+
+# 9-14
+def calculate():
+    import sys
+
+    filename = "date.txt"
+    comment = None
+
+    if sys.argv[1] == "print":
+        f = open(filename, 'r+')
+        for line in f.readlines():
+            print line,
+        f.truncate(0) # clear the content
+        f.close()
+        return None
+
+    for i in range(len(sys.argv)):
+        if "#" == sys.argv[i]:
+            comment = " ".join(sys.argv[i:])
+
+    n1 = float(sys.argv[1])
+    n2 = float(sys.argv[3])
+    operate = sys.argv[2]
+
+    if operate == "+":
+        result = n1 + n2
+    elif operate == "-":
+        result = n1 - n2
+    elif operate == "*":
+        result = n1 * n2
+    elif operate == "/":
+        result = n1 / n2
+    elif operate == "**":
+        result = n1 ** n2
+    elif operate == "%":
+        result = n1 % n2
+    else:
+        result = None
+
+    f = open(filename, 'a')
+    expression = sys.argv[1] + sys.argv[2] + sys.argv[3]
+    f.write(expression + comment + "\n")
+    f.write(str(result) + "\n")
+    f.close()
+
+    return result
+
+
+# 9-15
+def transfer():
+    import sys
+
+    filename1 = sys.argv[1]
+    filename2 = sys.argv[2]
+
+    f1 = open(filename1, 'r')
+    f2 = open(filename2, 'a')
+    for line in f1.readlines():
+        f2.write(line)
+    f1.close()
+    f2.close()
+
+
+
+# 9-16
+def line_adjust():
+    filename = raw_input("Enter the filename:")
+    f = open(filename)
+    all_lines = f.readlines()
+    f = open(filename, 'w')
+    for line in all_lines:
+        if len(line) > 80:
+            i = len(line) / 80
+            while i > 0:
+                line = line[:80 * i] + "\n" + line[80 * i:]
+                i -= 1
+        f.write(line)
+    f.close()
+
+
+# 9-18
+def count_file():
+    byte = raw_input("Enter the byte value:")
+    filename = raw_input("Enter the filename:")
+
+    f = open(filename)
+    all_string = " ".join(f.readlines())
+
+    return all_string.count(chr(int(byte)))
+
+print count_file()
