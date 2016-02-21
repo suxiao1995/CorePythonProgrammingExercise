@@ -284,4 +284,27 @@ def count_file():
 
     return all_string.count(chr(int(byte)))
 
-print count_file()
+
+# 9-19
+def random_bin(byte_value, times, size):
+    import random
+
+    byte_value = int(byte_value)
+    times = int(times)
+    size = int(size)
+
+    filename = "date.bin"
+    content = []
+
+    while len(content) < (size - times):
+        random_byte = random.randint(0, 255)
+        content.append(chr(random_byte))
+
+    while len(content) < size:
+        content.append(chr(byte_value))
+
+    random.shuffle(content) # shuffle the list
+
+    f = open(filename, 'w')
+    f.writelines(content)
+    f.close()
