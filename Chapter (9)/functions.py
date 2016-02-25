@@ -308,3 +308,57 @@ def random_bin(byte_value, times, size):
     f = open(filename, 'w')
     f.writelines(content)
     f.close()
+
+
+# 9-20
+def de_or_compress():
+    import gzip
+    import zlib
+    import shutil
+    import zipfile
+
+    # content = zlib.decompress("file.txt.gz", 16+zlib.MAX_WBITS)
+    # print content
+
+    con = gzip.open("file.txt.gz")
+    con.read()
+
+    prompt = """
+    1. Compress
+    2. Decompress
+    Enter the number:"""
+    mode = raw_input(prompt)
+    filename =raw_input("Enter the filename:")
+
+    if mode == "1":
+        with open(filename, 'rb+') as f_in, gzip.open(filename+'.gz', 'wb', 9) as f_out:
+            shutil.copyfileobj(f_in, f_out)
+    elif mode == "2":
+        zip_ref = zipfile.ZipFile(filename, 'r')
+        zip_ref.extractall() # default path is current dir
+        zip_ref.close()
+#de_or_compress()
+
+
+# 9-21
+def zip_file():
+    import zipfile
+
+    zip_filename = raw_input("Enter the zip filename:")
+    prompt = """
+    1. Add file
+    2. Extract file
+    Enter the number:"""
+    choice = raw_input(prompt)
+
+    with zipfile.ZipFile(zip_filename, 'a') as zfile:
+        if choice == "1":
+            filename = raw_input("Enter the filename:")
+            zfile.write(filename)
+        elif choice == "2":
+            for name in zfile.namelist():
+                print name
+            filename = raw_input("Enter the filename:")
+            zfile.extract(filename)
+
+
