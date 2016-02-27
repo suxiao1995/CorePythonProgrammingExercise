@@ -117,8 +117,41 @@ def module_info():
 
 # 9-9
 def check_doc():
-    pass
+    import os
+    from os.path import splitext
 
+    lib_path = "C:\Python27\Lib"
+    os.chdir(lib_path)
+    py_file_list = []
+    no_doc_file = []
+    result_file = open("module_doc.txt", 'a')
+    doc_mark = "\"\"\""
+
+    for root, dirs, files, in os.walk(lib_path):
+        for file in files:
+            if splitext(file)[1] == ".py":
+                py_file_list.append(root + "\\" + file)
+
+    for file in py_file_list:
+        f = open(file)
+        all_lines = f.readlines()
+        all_string = " ".join(all_lines)
+        if doc_mark in all_lines[0]:
+            start = all_string.find(doc_mark)
+            new_string = all_string[start + 3:]
+            doc_string = new_string.partition(doc_mark)[0] # get the doc
+            result_file.write("\n" + file + "\n")
+            result_file.write(doc_string)
+        else:
+            no_doc_file.append(file)
+
+        f.close()
+
+    result_file.write("No doc file:\n")
+    result_file.writelines(no_doc_file)
+    result_file.close()
+
+check_doc()
 
 # 9-10
 def finance():
