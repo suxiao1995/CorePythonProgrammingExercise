@@ -109,7 +109,7 @@ def ini_file():
         print line,
 
 
-# 9-8 ?
+# 9-8
 def module_info():
     modulename = raw_input("Enter module name:")
     print help(modulename)
@@ -118,40 +118,44 @@ def module_info():
 # 9-9
 def check_doc():
     import os
-    from os.path import splitext
+    from os.path import splitext, basename
 
     lib_path = "C:\Python27\Lib"
     os.chdir(lib_path)
-    py_file_list = []
+    py_file = []
     no_doc_file = []
     result_file = open("module_doc.txt", 'a')
     doc_mark = "\"\"\""
 
-    for root, dirs, files, in os.walk(lib_path):
+    for root, dirs, files in os.walk(lib_path):
         for file in files:
             if splitext(file)[1] == ".py":
-                py_file_list.append(root + "\\" + file)
+                py_file.append(root + "\\" + file) # find the py file
 
-    for file in py_file_list:
+    for file in py_file:
         f = open(file)
         all_lines = f.readlines()
         all_string = " ".join(all_lines)
-        if doc_mark in all_lines[0]:
-            start = all_string.find(doc_mark)
+        three_line = " ".join(all_lines[:3])
+        filename = basename(file)
+        if doc_mark in three_line:
+            start = all_string.find(doc_mark) # find the beginning of the doc
             new_string = all_string[start + 3:]
             doc_string = new_string.partition(doc_mark)[0] # get the doc
-            result_file.write("\n" + file + "\n")
+            result_file.write("\n" + filename + "\n")
             result_file.write(doc_string)
         else:
-            no_doc_file.append(file)
+            no_doc_file.append("\n" + filename + "\n")
 
         f.close()
 
-    result_file.write("No doc file:\n")
+    result_file.write("\nNo doc file:\n")
     result_file.writelines(no_doc_file)
     result_file.close()
 
-check_doc()
+def check_doc_pro():
+    pass
+
 
 # 9-10
 def finance():
