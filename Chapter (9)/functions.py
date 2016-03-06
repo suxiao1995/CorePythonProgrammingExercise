@@ -350,15 +350,7 @@ def random_bin(byte_value, times, size):
 # 9-20
 def de_or_compress():
     import gzip
-    import zlib
     import shutil
-    import zipfile
-
-    # content = zlib.decompress("file.txt.gz", 16+zlib.MAX_WBITS)
-    # print content
-
-    con = gzip.open("file.txt.gz")
-    con.read()
 
     prompt = """
     1. Compress
@@ -371,10 +363,8 @@ def de_or_compress():
         with open(filename, 'rb+') as f_in, gzip.open(filename+'.gz', 'wb', 9) as f_out:
             shutil.copyfileobj(f_in, f_out)
     elif mode == "2":
-        zip_ref = zipfile.ZipFile(filename, 'r')
-        zip_ref.extractall() # default path is current dir
-        zip_ref.close()
-#de_or_compress()
+        with gzip.open(filename) as f_in, open(filename[:-3], 'w') as f_out:
+            f_out.write(f_in.read())
 
 
 # 9-21
@@ -398,4 +388,49 @@ def zip_file():
             filename = raw_input("Enter the filename:")
             zfile.extract(filename)
 
+
+# 9-23
+def lstar():
+    import time
+    import tarfile
+    import lszip
+
+    filename = raw_input("Enter the filename:")
+    if filename.split(".")[1] == "zip":
+        return lszip.show_zip_info(filename)
+
+    f = tarfile.open(filename)
+    for file in f.getnames():
+        info = f.getmember(file)
+        print "Name: %s" % info.name
+        print "Size: %s" % info.size
+        print "Time: %s\n" % time.ctime(info.mtime)
+
+
+# 9-24
+def transfer_file():
+    import tarfile
+    import zipfile
+
+    filename = raw_input("Enter the filename you want to move:")
+    object_file = raw_input("Enter the object filename:")
+
+    if filename.split(".")[1] == "zip":
+        with zipfile.ZipFile(filename) as f_from:
+            file_list = f_from.namelist()
+    else:
+        with tarfile.open(filename) as f_from:
+            file_list = f_from.getnames()
+
+    if object_file.split(".")[1] == "zip":
+        with zipfile.ZipFile(filename, 'a') as f_to:
+            for file in file_list:
+                f_to.write(file)
+    else:
+        with tarfile.open(object_file, 'w') as f_to:
+            for file in file_list:
+                f_to.add(file)
+
+
+transfer_file()
 
