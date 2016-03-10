@@ -153,8 +153,54 @@ def check_doc():
     result_file.writelines(no_doc_file)
     result_file.close()
 
+
+# unsolved!
 def check_doc_pro():
-    pass
+    import os
+    from os.path import splitext, basename
+
+    lib_path = "C:\Python27\Lib"
+    os.chdir(lib_path)
+    py_file = []
+    no_doc_file = []
+    result_file = open("all_doc.txt", 'a')
+    doc_mark = "\"\"\""
+
+    for root, dirs, files in os.walk(lib_path):
+        for file in files:
+            if splitext(file)[1] == ".py":
+                py_file.append(root + "\\" + file) # find the py file
+
+    def get_doc(remain_string):
+        if doc_mark in remain_string:
+            start = all_string.find(doc_mark) # find the beginning of the doc
+            new_string = all_string[start + 3:]
+            doc_string = new_string.partition(doc_mark)[0] # get the doc
+            new_remain_string = new_string.partition(doc_mark)[2] # get the remain string
+            print new_remain_string
+            result_file.write(doc_string)
+
+            return get_doc(new_remain_string)
+        else:
+            print "No"
+
+
+    for file in py_file:
+        f = open(file)
+        all_lines = f.readlines()
+        all_string = " ".join(all_lines)
+        filename = basename(file)
+        if doc_mark in all_string:
+            result_file.write("\n" + filename + "\n")
+            get_doc(all_string)
+        else:
+            no_doc_file.append("\n" + filename + "\n")
+
+        f.close()
+
+    result_file.write("\nNo doc file:\n")
+    result_file.writelines(no_doc_file)
+    result_file.close()
 
 
 # 9-10
@@ -408,7 +454,9 @@ def lstar():
 
 
 # 9-24
+# unsolved!
 def transfer_file():
+    import os
     import tarfile
     import zipfile
 
@@ -418,19 +466,25 @@ def transfer_file():
     if filename.split(".")[1] == "zip":
         with zipfile.ZipFile(filename) as f_from:
             file_list = f_from.namelist()
+            f_from.extractall()
     else:
-        with tarfile.open(filename) as f_from:
+        with tarfile.open(filename, 'r') as f_from:
             file_list = f_from.getnames()
+            f_from.extractall()
 
     if object_file.split(".")[1] == "zip":
-        with zipfile.ZipFile(filename, 'a') as f_to:
-            for file in file_list:
-                f_to.write(file)
+        for file in os.listdir(os.getcwd()):
+            if file in file_list:
+                with zipfile.ZipFile(filename, 'a') as f_to:
+                    f_to.write(file)
+                os.remove(file)
     else:
-        with tarfile.open(object_file, 'w') as f_to:
-            for file in file_list:
-                f_to.add(file)
+        for file in os.listdir(os.getcwd()):
+            if file in file_list:
+                with tarfile.open(object_file, 'a') as f_to:
+                    f_to.add(file)
+                os.remove(file)
 
 
-transfer_file()
-
+# 9-25
+# unsolved!
