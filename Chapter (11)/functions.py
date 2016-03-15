@@ -77,7 +77,19 @@ def clear_file():
     1. New file
     2. Re-write
     Enter the number: """
+    choice = raw_input("Enter the number:")
+
+    def del_blank(line):
+        return line.strip()
+    all_lines = open(filename).readlines()
+    # new_lines = map(del_blank, all_lines)
+    new_lines = [line.strip() for line in all_lines]
+
     if choice == "1":
-        f = open(filename, 'w')
+        open(filename, 'w').writelines(new_lines)
+    elif choice == "2":
+        new_filename = raw_input("Enter the new filename:")
+        open(new_filename, 'w').writelines(new_lines)
 
 
+#
