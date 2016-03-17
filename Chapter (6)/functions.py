@@ -51,10 +51,7 @@ def print_str():
         s_center = length / 2
     else:
         s_center = (length / 2) + 1
-    
-    s_back = string[s_center:]
-    s_fore = string[:s_center]
-    
+
     i = 0
     while i < (s_center + 1):
         # %20s%s%-20s: the number between '%' and 's' means to fill up 20 spaces.
@@ -65,7 +62,7 @@ def print_str():
 
 
 # 6-5(b)
-def comStrings():
+def comStrings(str1, str2):
     str1 = str1.lower()
     str2 = str2.lower()
    

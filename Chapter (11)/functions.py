@@ -92,4 +92,49 @@ def clear_file():
         open(new_filename, 'w').writelines(new_lines)
 
 
-#
+# 11-14
+def print_str():
+    from time import sleep
+    string = raw_input("Enter a string:")
+    i = 0
+    length = len(string)
+
+    if length % 2 == 0:
+        s_center = length / 2
+    else:
+        s_center = (length / 2) + 1
+
+    i = 0
+    while i < (s_center + 1):
+        # %20s%s%-20s: the number between '%' and 's' means to fill up 20 spaces.
+        print "%20s%s%-20s" % (string[s_center - i:s_center], string[s_center],
+                            string[s_center + 1:s_center + i])
+        i += 1
+        sleep(1)
+
+def print_str_pro():
+    s = raw_input("Enter a string:")
+    length = len(s)
+
+    print length
+    if length % 2 == 0:
+        s_center = length / 2
+    else:
+        s_center = (length / 2) + 1
+
+    print s_center
+    print "-----------"
+    print s[s_center]
+    print "-----------"
+
+    i = 1
+
+    def print_s(i):
+        print s[s_center - i], s[s_center + i]
+        if i < s_center + 1:
+            print i
+            return print_s(i + 1)
+
+    print_s(i)
+
+print_str_pro()
