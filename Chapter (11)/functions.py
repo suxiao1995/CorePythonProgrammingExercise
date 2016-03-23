@@ -92,6 +92,31 @@ def clear_file():
         open(new_filename, 'w').writelines(new_lines)
 
 
+
+# 11-12
+def timeit():
+    pass
+
+
+# 11-13(a)
+def mult(x ,y):
+    return x * y
+
+
+# 11-13(b)
+def factorial(n):
+    return reduce(mult, range(1, n + 1))
+
+
+# 11-13(c)
+def factorial_pro(n):
+    return reduce(lambda x, y: x * y, range(1, n + 1))
+
+# 11-13(d)
+def fac_timeit():
+    pass
+
+
 # 11-14
 def print_str():
     from time import sleep
@@ -111,6 +136,7 @@ def print_str():
                             string[s_center + 1:s_center + i])
         i += 1
         sleep(1)
+
 
 def print_str_pro():
     s = raw_input("Enter a string:")
@@ -137,4 +163,3 @@ def print_str_pro():
 
     print_s(i)
 
-print_str_pro()
