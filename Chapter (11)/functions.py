@@ -92,10 +92,15 @@ def clear_file():
         open(new_filename, 'w').writelines(new_lines)
 
 
-
 # 11-12
-def timeit():
-    pass
+def timeit(func, arg):
+    import time
+    start = time.clock()
+    return_value = func(arg)
+    end = time.clock()
+    pass_time = end - start
+
+    return pass_time, return_value
 
 
 # 11-13(a)
@@ -114,51 +119,55 @@ def factorial_pro(n):
 
 # 11-13(d)
 def fac_timeit():
-    pass
+    def fac_recursion(n):
+        if n == 1:
+            return 1
+        else:
+            return n * fac_recursion(n-1)
+
+    def fac_iter(n):
+        i = 1
+        for num in range(1, n + 1):
+            i *= num
+
+        return i
+
+    print timeit(fac_recursion, 10)
+    print timeit(fac_iter, 10)
+    print timeit(factorial_pro, 10)
+
+
+fac_timeit()
 
 
 # 11-14
-def print_str():
-    from time import sleep
-    string = raw_input("Enter a string:")
-    i = 0
-    length = len(string)
-
-    if length % 2 == 0:
-        s_center = length / 2
+def fibonacci(n):
+    if n == 1 or n == 2:
+        return 1
     else:
-        s_center = (length / 2) + 1
+        return fibonacci(n-1) + fibonacci(n-2)
 
-    i = 0
-    while i < (s_center + 1):
-        # %20s%s%-20s: the number between '%' and 's' means to fill up 20 spaces.
-        print "%20s%s%-20s" % (string[s_center - i:s_center], string[s_center],
-                            string[s_center + 1:s_center + i])
-        i += 1
-        sleep(1)
-
-
+# 11-15
 def print_str_pro():
+    import time
+
     s = raw_input("Enter a string:")
     length = len(s)
 
-    print length
     if length % 2 == 0:
         s_center = length / 2
     else:
         s_center = (length / 2) + 1
 
-    print s_center
-    print "-----------"
-    print s[s_center]
-    print "-----------"
-
     i = 1
-
+    print " " * 20 + s[s_center]
     def print_s(i):
-        print s[s_center - i], s[s_center + i]
-        if i < s_center + 1:
-            print i
+        #time.sleep(1)
+        j = i
+        print "%20s%-20s " % (s[s_center - j: s_center], s[s_center: s_center + i])
+        if s_center + i < length:
+            if j == s_center:
+                j -= 1
             return print_s(i + 1)
 
     print_s(i)
