@@ -42,7 +42,7 @@ def tax_pro(tax_rate=0.7):
 
 
 # 11-6
-def printf():
+def printf(s, f):
     pass
 
 
@@ -127,17 +127,16 @@ def fac_timeit():
 
     def fac_iter(n):
         i = 1
-        for num in range(1, n + 1):
+        for num in range(1, n + 1): # 1~n
             i *= num
-
         return i
+
+    def fac_reduce(n):
+        return reduce(lambda x, y: x * y, range(1, n + 1))
 
     print timeit(fac_recursion, 10)
     print timeit(fac_iter, 10)
-    print timeit(factorial_pro, 10)
-
-
-fac_timeit()
+    print timeit(fac_reduce, 10)
 
 
 # 11-14
