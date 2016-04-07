@@ -2,59 +2,6 @@
 __author__ = 'lihui'
 
 
-# 13-3
-class MoneyFmt(object):
-
-    def __init__(self, value):
-        self.value = value
-
-
-    def dollarize(self, mark=0):
-        list_num = list(str(self.value))
-        str_num = str(self.value)
-
-        if isinstance(self.value, float):
-            dot = str_num.find(".")
-        else:
-            dot = len(str_num)
-
-        for i in range(dot, 0, -3):
-            if i != dot:
-                list_num.insert(i, ",")
-        result = "".join(list_num)
-
-        if self.value >= 0:
-            return "$%s" % result
-        elif self.value < 0 and mark == 0:
-            return "-$%s" % result[1:]
-        else:
-            return "$<%s>" % result[1:]
-
-
-    def update(self, new_value):
-        self.value = new_value
-
-
-    def __nonzero__(self):
-        if self.value != 0:
-            return True
-
-
-    def __repr__(self):
-        return float(self.value)
-
-
-    def __str__(self):
-        return MoneyFmt.dollarize(self.value)
-
-
-s = MoneyFmt(123456789)
-print s.dollarize()
-print s.__nonzero__()
-s.update(-9876543210.34)
-print s.dollarize()
-
-
 # 13-4
 class UserDatabase(object):
     import shelve
@@ -80,3 +27,45 @@ class UserDatabase(object):
     def __del__(self):
         pass
 
+
+# 13-5
+class Point(object):
+
+    def __init__(self, x=0, y=0):
+        self.x = x
+        self.y = y
+        print "(%s, %s)" % (self.x, self.y)
+
+
+# 13-6
+class Line(object):
+
+    def __init__(self, x1=0, x2=0, y1=0, y2=0):
+        self.x1 = x1
+        self.x2 = x2
+        self.y1 = y1
+        self.y2 = y2
+        self.length = self.length()
+        self.slope = self.slope()
+
+
+    def __str__(self):
+        return "(%s, %s)" % ((self.x1, self.y1), (self.x2, self.y2))
+
+
+    __repr__ = __str__
+
+
+    def length(self):
+        import math
+        return math.sqrt((self.x2-self.x1) ** 2 + (self.y2-self.y1) ** 2)
+
+
+    def slope(self):
+        try:
+            return (self.y2-self.y1) / float((self.x2-self.x1))
+        except ZeroDivisionError:
+            return None
+
+
+#
