@@ -20,7 +20,7 @@ def calculate(date1,date2):
     if years > 1 and int(date2[3:5]) > 2:
         total_days += 1
         
-    return total_days
+    print total_days
     
 def date_days():
     
@@ -33,7 +33,9 @@ def birth_days():
     now = time.localtime()
     date1 = raw_input("Enter your birth date (DD/MM/YYYY) : ")
     date2 = str(now.tm_mday) + "/" + str(now.tm_mon) + "/" + str(now.tm_year)
-    
+    print date1
+    print date2
+
     calculate(date1,date2)
     
 def next_birthday():

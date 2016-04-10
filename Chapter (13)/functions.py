@@ -48,18 +48,14 @@ class Line(object):
         self.length = self.length()
         self.slope = self.slope()
 
-
     def __str__(self):
         return "(%s, %s)" % ((self.x1, self.y1), (self.x2, self.y2))
 
-
     __repr__ = __str__
-
 
     def length(self):
         import math
         return math.sqrt((self.x2-self.x1) ** 2 + (self.y2-self.y1) ** 2)
-
 
     def slope(self):
         try:
@@ -68,4 +64,33 @@ class Line(object):
             return None
 
 
-#
+# 13-7
+from time import time, ctime, localtime, strftime
+
+
+class TimeWarp(object):
+
+    def __init__(self, now_time=time()):
+        self.time = now_time
+
+    def display(self, time_format=None):
+
+        if time_format is None:
+            return ctime(self.time)
+
+        if time_format == "MDY":
+            return strftime("%m/%d/%y", localtime(self.time))
+        elif time_format == "MDYY":
+            return strftime("%m/%d/%Y", localtime(self.time))
+        elif time_format == "DMY":
+            return strftime("%d/%m/%y", localtime(self.time))
+        elif time_format == "DMYY":
+            return strftime("%d/%m/%Y", localtime(self.time))
+        elif time_format == "MODYY":
+            return strftime("%a %d, %Y", localtime(self.time))
+
+    def update(self, new_time=time()):
+        self.time = new_time
+
+
+# 13-8

@@ -5,8 +5,8 @@ __author__ = 'lihui'
 # 13-3
 class MoneyFmt(object):
 
-    def __init__(self, value):
-        self.value = value
+    def __init__(self, value=0.0):
+        self.value = float(value)
 
 
     def dollarize(self, mark=0):
@@ -45,8 +45,8 @@ class MoneyFmt(object):
 
 
     def __repr__(self):
-        return float(self.value)
+        return str(self.value)
 
 
     def __str__(self):
-        return MoneyFmt.dollarize(self.value)
+        return self.__class__.dollarize(self)
