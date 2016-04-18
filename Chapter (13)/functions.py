@@ -94,3 +94,51 @@ class TimeWarp(object):
 
 
 # 13-8
+class Stack(list):
+
+    def push(self, value):
+        self.append(value)
+
+    def isempty(self):
+        if len(self) == 0:
+            return 1
+        else:
+            return 0
+
+    def peek(self):
+        return self[0]
+
+    # if "pop" not in dir(self):
+
+
+test = Stack()
+test.push("hi")
+test.push("hello")
+test.push("hola")
+test.peek()
+print test
+test.pop()
+print test
+print test.isempty()
+print dir(test)
+
+
+# 13-9
+class Queue(list):
+
+    def enqueue(self, value):
+        self.append(value)
+
+    def dequeue(self):
+        return self.pop()
+
+    def isempty(self):
+        if len(self) == 0:
+            return 1
+        else:
+            return 0
+
+    def peek(self):
+        return self[0]
+
+    
