@@ -130,7 +130,7 @@ class Queue(list):
         self.append(value)
 
     def dequeue(self):
-        return self.pop()
+        return self.pop(0)
 
     def isempty(self):
         if len(self) == 0:
@@ -141,4 +141,21 @@ class Queue(list):
     def peek(self):
         return self[0]
 
-    
+
+# 13-10
+class StackQueue(list):
+
+    def shift(self):
+        return self.pop(0)
+
+    def unshift(self, value):
+        self.insert(0, value)
+
+    def push(self, value):
+        self.append(value)
+
+    def pop(self, index=None):
+        return self.pop()
+
+
+

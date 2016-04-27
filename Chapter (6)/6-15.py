@@ -57,7 +57,7 @@ def showmenu():
     choice = raw_input(pr)
 
     CMDs = {'1':date_days,'2':birth_days,'3':next_birthday}
-    
+    #这个练习还有一些问题要解决
     CMDs[choice]()
     
 if __name__ == "__main__":
