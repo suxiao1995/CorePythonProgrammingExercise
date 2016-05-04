@@ -4,6 +4,11 @@ import random
 
 __author__ = 'lihui'
 
+# todo 存储用户数据
+# todo 存储消息记录
+# todo 存储未上线用户收到的信息
+# todo 签名档
+# todo 多人聊天室
 
 # 13-12
 class User(object):
