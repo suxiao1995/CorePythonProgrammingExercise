@@ -23,7 +23,9 @@ while True:
         if not data or data == "q":
             tcpCliSock.close()
             break
-        msg = data.split()
-        print "Receive message from: %s" % msg[0]
-        print "Send message to: %s" % msg[2]
-        tcpCliSock.send("[%s] %s" % (ctime(), msg[0]+":"+"\n"+msg[1]))
+        print data
+        # msg = data.split()
+        # print "Receive message from: %s" % msg[0]
+        # print "Send message to: %s" % msg[2]
+        msg = raw_input(">")
+        tcpCliSock.send("[%s] %s" % (ctime(), msg))
