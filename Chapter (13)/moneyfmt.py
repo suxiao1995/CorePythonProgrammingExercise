@@ -50,3 +50,7 @@ class MoneyFmt(object):
 
     def __str__(self):
         return self.__class__.dollarize(self)
+
+if __name__ == "__main__":
+    test = MoneyFmt(-123457.12)
+    print test.dollarize()

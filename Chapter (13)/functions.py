@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 __author__ = 'lihui'
+__website__ = 'withlihui.com'
+__email__ = 'withlihui@gmail.com'
 
 
-# 13-4
+# todo 13-4
 class UserDatabase(object):
     import shelve
     def __init__(self, username, pwd):
@@ -108,19 +110,13 @@ class Stack(list):
     def peek(self):
         return self[0]
 
-    # if "pop" not in dir(self):
-
-
-test = Stack()
-test.push("hi")
-test.push("hello")
-test.push("hola")
-test.peek()
-print test
-test.pop()
-print test
-print test.isempty()
-print dir(test)
+    def pop(self, index=-1):
+        if hasattr(list, 'pop'):
+            return self.pop(index)
+        else:
+            temp = self[index]
+            del self[index]
+            return temp
 
 
 # 13-9
@@ -157,5 +153,96 @@ class StackQueue(list):
     def pop(self, index=None):
         return self.pop()
 
+# TODO 13-13
+class Invest(object):
 
+    def __init__(self):
+        self.database = {1: ("google", "2015/2/12", 34.2, 1237), 2: ("yahoo", "2013/2/3", 23.5, 1563)}
+
+    def add_new(self, id, name, date, price, amount):
+        self.database[id] = (name, date, price, amount)
+
+    def delete_all(self, id):
+        del self.database[id]
+
+    def profit(self):
+        pass
+
+# TODO 13-14
+import os
+class Shell(object):
+
+    def __init__(self):
+        print """
+        Welcome to my shell!
+        command:
+          "ls": list files in a directory
+          "more": read more
+          "cat": check the file type
+          "cp": copy
+          "mv": move
+          "rm": del
+          "q": quit
+          """
+        while True:
+            choice = raw_input(">>>").split()
+            if choice == "q":
+                break
+
+            command ={"ls": self.ls, "rm": self.rm}
+            if len(choice) == 1:
+                command[choice[0]](os.getcwd())
+            else:
+                command[choice[0]](choice[1])
+
+
+    def ls(self, directory):
+        print os.listdir(directory)
+
+    def more(self):
+        pass
+
+    def cat(self):
+        pass
+
+    def cp(self):
+        pass
+
+    def mv(self):
+        pass
+
+    def rm(self, filename):
+        return os.remove(filename)
+
+
+# 13-16
+class CapOpen(object):
+    def __init__(self, fn, mode='r', buf=-1):
+        self.file = open(fn, mode, buf)
+
+    def __str__(self):
+        return str(self.file)
+
+    def __repr__(self):
+        return 'self.file'
+
+    def write(self, line):
+        self.file.write(line.upper())
+
+    def writelines(self, lines, sep=False):
+        if sep == False:
+            line_sep = ''
+        else:
+            line_sep = os.linesep
+
+        for line in lines:
+            self.file.write(line.upper() + line_sep)
+
+    def __getattr__(self, attr):
+        return getattr(self.file, attr)
+
+f = CapOpen('hi.txt', mode='w')
+f.write('hi, my name is lihui.')
+words = ["yes", "I am waiting for you", "where are you?"]
+f.writelines(words)
 
