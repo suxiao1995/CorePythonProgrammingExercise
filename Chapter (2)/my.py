@@ -39,7 +39,7 @@ def sequence():
     num3 = int(raw_input("Number3:"))
 
     # from biggest to smallest
-    print max(num1,num2,num3),min(max(num1,num2),max(num1,num2),max(num2,num3)),min(num1,num2,num3)
+    print max(num1,num2,num3),min(max(num1,num2),max(num1,num3),max(num2,num3)),min(num1,num2,num3)
 
     # from smallest to biggest
-    print min(num1,num2,num3),min(max(num1,num2),max(num1,num2),max(num2,num3)),max(num1,num2,num3)
+    print min(num1,num2,num3),min(max(num1,num2),max(num1,num3),max(num2,num3)),max(num1,num2,num3)
